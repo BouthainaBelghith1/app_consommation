@@ -1,19 +1,18 @@
 <template>
     <div>
-        <div class="form-wrapper">
-            <h2>Sign In</h2>
-            <form @submit.prevent="Login()">
-                <div class="form-control">
-                    <input type="text" v-model="email" required>
-                    <label >Email</label>
-                </div>
-                <div class="form-control">
-                    <input type="password" v-model="password" required>
-                    <label>Password</label>
-                </div>
-                <button type="submit">Sign In</button>
-            </form>
-        </div>
+        <form class="login-form" @submit.prevent="Login()">
+            <p class="login-text">
+                <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-lock fa-stack-1x"></i>
+                </span>
+            </p>
+            <input type="email" class="login-username" autofocus="true" required="true" placeholder="Email" v-model="email"/>
+            <input type="password" class="login-password" required="true" placeholder="Password" v-model="password"/>
+            <input type="submit" name="Login" value="Login" class="login-submit" />
+        </form>
+        <div class="underlay-photo"></div>
+        <div class="underlay-black"></div> 
     </div>
 
 </template>
@@ -37,183 +36,145 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,700);
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+
+body, html {
+  height: 100%;
 }
-
 body {
-    background: #000;
+  font-family: 'Open Sans';
+  font-weight: 100;
+  display: flex;
+  overflow: hidden;
 }
-
-body::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0.5;
-    width: 100%;
-    height: 100%;
-    background: url('/img/login.jpg');
-    background-position: center;
-}
-
-nav {
-    position: fixed;
-    padding: 25px 60px;
-    z-index: 1;
-}
-
-nav a img {
-    width: 167px;
-}
-
-.form-wrapper {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    border-radius: 4px;
-    padding: 70px;
-    width: 450px;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, .75);
-}
-
-.form-wrapper h2 {
-    color: #fff;
-    font-size: 2rem;
-}
-
-.form-wrapper form {
-    margin: 25px 0 65px;
-}
-
-form .form-control {
-    height: 50px;
-    position: relative;
-    margin-bottom: 16px;
-}
-
-.form-control input {
-    height: 100%;
-    width: 100%;
-    background: #333;
-    border: none;
-    outline: none;
-    border-radius: 4px;
-    color: #fff;
-    font-size: 1rem;
-    padding: 0 20px;
-}
-
-.form-control input:is(:focus, :valid) {
-    background: #444;
-    padding: 16px 20px 0;
-}
-
-.form-control label {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1rem;
-    pointer-events: none;
-    color: #8c8c8c;
-    transition: all 0.1s ease;
-}
-
-.form-control input:is(:focus, :valid)~label {
-    font-size: 0.75rem;
-    transform: translateY(-130%);
-}
-
-form button {
-    width: 100%;
-    padding: 16px 0;
-    font-size: 1rem;
-    background: #e50914;
-    color: #fff;
-    font-weight: 500;
-    border-radius: 4px;
-    border: none;
-    outline: none;
-    margin: 25px 0 10px;
-    cursor: pointer;
-    transition: 0.1s ease;
-}
-
-form button:hover {
-    background: #c40812;
-}
-
-.form-wrapper a {
-    text-decoration: none;
-}
-
-.form-wrapper a:hover {
-    text-decoration: underline;
-}
-
-.form-wrapper :where(label, p, small, a) {
-    color: #b3b3b3;
-}
-
-form .form-help {
-    display: flex;
-    justify-content: space-between;
-}
-
-form .remember-me {
-    display: flex;
-}
-
-form .remember-me input {
-    margin-right: 5px;
-    accent-color: #b3b3b3;
-}
-
-form .form-help :where(label, a) {
-    font-size: 0.9rem;
-}
-
-.form-wrapper p a {
-    color: #fff;
-}
-
-.form-wrapper small {
-    display: block;
-    margin-top: 15px;
-    color: #b3b3b3;
-}
-
-.form-wrapper small a {
-    color: #0071eb;
-}
-
-@media (max-width: 740px) {
-    body::before {
-        display: none;
+input {
+  ::-webkit-input-placeholder {
+     color: rgba(255,255,255,0.7);
+  }
+  ::-moz-placeholder {
+     color: rgba(255,255,255,0.7);  
+  }
+  :-ms-input-placeholder {  
+     color: rgba(255,255,255,0.7);  
+  }
+  &:focus {
+    outline: 0 transparent solid;
+    ::-webkit-input-placeholder {
+     color: rgba(0,0,0,0.7);
     }
-
-    nav, .form-wrapper {
-        padding: 20px;
+    ::-moz-placeholder {
+       color: rgba(0,0,0,0.7);  
     }
-
-    nav a img {
-        width: 140px;
+    :-ms-input-placeholder {  
+       color: rgba(0,0,0,0.7);  
     }
+  }
+}
 
-    .form-wrapper {
-        width: 100%;
-        top: 43%;
-    }
+.login-form {
+  //background: #222;
+  //box-shadow: 0 0 1rem rgba(0,0,0,0.3);
+  min-height: 10rem;
+  margin: auto;
+  max-width: 50%;
+  padding: .5rem;
+}
+.login-text {
+  //background: hsl(40,30,60);
+  //border-bottom: .5rem solid white;
+  color: white;
+  font-size: 1.5rem;
+  margin: 0 auto;
+  max-width: 50%;
+  padding: .5rem;
+  text-align: center;
+  //text-shadow: 1px -1px 0 rgba(0,0,0,0.3);
+  .fa-stack-1x {
+    color: black;
+  }
+}
 
-    .form-wrapper form {
-        margin: 25px 0 40px;
-    }
+.login-username, .login-password {
+  background: transparent;
+  border: 0 solid;
+  border-bottom: 1px solid rgba(white, .5);
+  color: white;
+  display: block;
+  margin: 1rem;
+  padding: .5rem;
+  transition: 250ms background ease-in;
+  width: calc(100% - 3rem);
+  &:focus {
+    background: white;
+    color: black;
+    transition: 250ms background ease-in;
+  }
+}
+
+.login-forgot-pass {
+  //border-bottom: 1px solid white;
+  bottom: 0;
+  color: white;
+  cursor: pointer;
+  display: block;
+  font-size: 75%;
+  left: 0;
+  opacity: 0.6;
+  padding: .5rem;
+  position: absolute;
+  text-align: center;
+  //text-decoration: none;
+  width: 100%;
+  &:hover {
+    opacity: 1;
+  }
+}
+.login-submit {
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+  display: block;
+  margin: 1rem auto;
+  min-width: 1px;
+  padding: .25rem;
+  transition: 250ms background ease-in;
+  &:hover, &:focus {
+    background: white;
+    color: black;
+    transition: 250ms background ease-in;
+  }
+}
+
+
+
+
+[class*=underlay] {
+  left: 0;
+  min-height: 100%;
+  min-width: 100%;
+  position: fixed;
+  top: 0;
+}
+.underlay-photo {
+  background: url('/img/petrole.jpeg');
+  background-size: 100% 100%;
+  
+  z-index: -1;
+}
+.underlay-black {
+  background: rgba(0, 0, 0, 0.555);
+  z-index: -1;
+}
+
+@keyframes hue-rotate {
+  from {
+    -webkit-filter: grayscale(30%) hue-rotate(0deg);
+  }
+  to {
+    -webkit-filter: grayscale(30%) hue-rotate(360deg);
+  }
 }
 </style>

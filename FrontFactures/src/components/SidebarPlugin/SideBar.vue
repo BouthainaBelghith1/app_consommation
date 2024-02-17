@@ -6,8 +6,8 @@
     <div class="sidebar-wrapper">
       <div class="logo">
         <a href="#" class="simple-text logo__container">
-            <div class="logo-img">
-                <img src="img/logo.jpeg" alt="">
+            <div>
+                <img src="img/logo.png" alt="" height="50px" style="margin-right: 10px;border-radius: 50%;">
             </div>
           {{title}}
         </a>
