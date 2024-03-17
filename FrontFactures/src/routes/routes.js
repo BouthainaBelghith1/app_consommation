@@ -19,8 +19,7 @@ import Categorie from '../pages/Categorie.vue'
 const routes = [
   {
     path: '/',
-    component: DashboardLayout,
-    redirect: '/overview'
+    redirect: '/LoginView' // Rediriger vers LoginView par défaut
   },
   {
     path: '/LoginView',

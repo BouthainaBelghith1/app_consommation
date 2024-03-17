@@ -18,20 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Broadcast::routes(['prefix' => 'app/ws']);
-
-Route::get('/ws/{appKey}', [WebSocketController::class, 'show']);
-
-use App\Events\Notif;
-use App\Events\Fact;
-  
-Route::get('/broadcast', function () {
-    broadcast(new Notif("test"));
-    return "Event has been sent!";
-});
-
-Route::get('/broadcast', function () {
-    broadcast(new Fact ("test"));
-    return "Event has been sent!";
-});
 

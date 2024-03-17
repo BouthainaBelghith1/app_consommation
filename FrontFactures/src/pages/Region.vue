@@ -24,8 +24,6 @@
                     <tr>
                       <th>#</th>
                       <th>Nom Region</th>
-                      <th>Local</th>
-                      <th>Utilisateur</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
@@ -33,8 +31,6 @@
                     <tr v-for="region in Regions" :key="region.id">
                       <td>{{ region.id }}</td>
                       <td>{{ region.nomRegion }}</td>
-                      <td>{{ GetNomLocal(region.local_id) }}</td>
-                      <td>{{ GetNomUser(region.user_id) }} ({{ GetRoleUser(region.user) }})</td>
                       <td>
                         <button  class="btn btn-danger" @click="DeleteRegion(region.id)"><i class="fa fa-trash"></i></button>
                         <button class="btn btn-warning" @click="edit(region.id)"><i class="fa fa-edit"></i></button>
@@ -92,24 +88,6 @@
        this.idSelected=id;
        this.view="update";
      },
-     GetNomUser(id){
-        UserService.FindByIdUser(id).then((res)=>{
-            console.log(res.data.data.nom);
-            return res.data.data.nom;
-        })
-     },
-     GetRoleUser(id){
-        UserService.FindByIdUser(id).then((res)=>{
-            console.log(res.data.data.role);
-            return res.data.data.role;
-        })
-     },
-     GetNomLocal(id){
-        LocalService.FindByIdLocal(id).then((res)=>{
-            console.log(res.data.data.nomLocal);
-            return res.data.data.nomLocal;
-        })
-     }
    },
    components:{
      AddRegion,UpdateRegion

@@ -33,7 +33,11 @@
                 <tbody>
                   <tr v-for="facture in Factures" :key="facture.id">
                     <td>{{ facture.montantTotale }}</td>
-                    <td>{{ facture.adresse }}</td>
+                    <td class="col-2 text-truncate">
+                      <span class="d-inline-block text-truncate" style="max-width: 150px;">
+                        {{ facture.adresse }}
+                      </span>
+                    </td>
                     <td>
                       <i class="fa fa-check text-success" v-if="facture.isPaid"></i>
                       <i class="fa fa-times text-danger" v-else></i>

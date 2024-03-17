@@ -1,38 +1,38 @@
 <template>
-    <div>
-        <form class="login-form" @submit.prevent="Login()">
-            <p class="login-text">
-                <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-lock fa-stack-1x"></i>
-                </span>
-            </p>
-            <input type="email" class="login-username" autofocus="true" required="true" placeholder="Email" v-model="email"/>
-            <input type="password" class="login-password" required="true" placeholder="Password" v-model="password"/>
-            <input type="submit" name="Login" value="Login" class="login-submit" />
-        </form>
-        <div class="underlay-photo"></div>
-        <div class="underlay-black"></div> 
-    </div>
+  <div>
+      <form class="login-form" @submit.prevent="Login()">
+          <p class="login-text">
+              <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-lock fa-stack-1x"></i>
+              </span>
+          </p>
+          <input type="email" class="login-username" autofocus="true" required="true" placeholder="Email" v-model="email"/>
+          <input type="password" class="login-password" required="true" placeholder="Password" v-model="password"/>
+          <input type="submit" name="Login" value="Login" class="login-submit" />
+      </form>
+      <div class="underlay-photo"></div>
+      <div class="underlay-black"></div> 
+  </div>
 
 </template>
 
 <script >
 import AuthService from "../../services/auth.js"
 export default {
-    data() {
-        return {
-            email:"",
-            password:""
-        }
-    },
-    methods:{
-        Login(){
-            AuthService.Login(this.email,this.password).then((res)=>{
-                this.$router.push("/");
-            })
-        }
-    }
+  data() {
+      return {
+          email:"",
+          password:""
+      }
+  },
+  methods:{
+      Login(){
+          AuthService.Login(this.email,this.password).then((res)=>{
+              this.$router.push("/overview");
+          })
+      }
+  }
 }
 </script>
 
@@ -42,139 +42,139 @@ export default {
 @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
 
 body, html {
-  height: 100%;
+height: 100%;
 }
 body {
-  font-family: 'Open Sans';
-  font-weight: 100;
-  display: flex;
-  overflow: hidden;
+font-family: 'Open Sans';
+font-weight: 100;
+display: flex;
+overflow: hidden;
 }
 input {
+::-webkit-input-placeholder {
+   color: rgba(255,255,255,0.7);
+}
+::-moz-placeholder {
+   color: rgba(255,255,255,0.7);  
+}
+:-ms-input-placeholder {  
+   color: rgba(255,255,255,0.7);  
+}
+&:focus {
+  outline: 0 transparent solid;
   ::-webkit-input-placeholder {
-     color: rgba(255,255,255,0.7);
+   color: rgba(0,0,0,0.7);
   }
   ::-moz-placeholder {
-     color: rgba(255,255,255,0.7);  
+     color: rgba(0,0,0,0.7);  
   }
   :-ms-input-placeholder {  
-     color: rgba(255,255,255,0.7);  
+     color: rgba(0,0,0,0.7);  
   }
-  &:focus {
-    outline: 0 transparent solid;
-    ::-webkit-input-placeholder {
-     color: rgba(0,0,0,0.7);
-    }
-    ::-moz-placeholder {
-       color: rgba(0,0,0,0.7);  
-    }
-    :-ms-input-placeholder {  
-       color: rgba(0,0,0,0.7);  
-    }
-  }
+}
 }
 
 .login-form {
-  //background: #222;
-  //box-shadow: 0 0 1rem rgba(0,0,0,0.3);
-  min-height: 10rem;
-  margin: auto;
-  max-width: 50%;
-  padding: .5rem;
+//background: #222;
+//box-shadow: 0 0 1rem rgba(0,0,0,0.3);
+min-height: 10rem;
+margin: auto;
+max-width: 50%;
+padding: .5rem;
 }
 .login-text {
-  //background: hsl(40,30,60);
-  //border-bottom: .5rem solid white;
-  color: white;
-  font-size: 1.5rem;
-  margin: 0 auto;
-  max-width: 50%;
-  padding: .5rem;
-  text-align: center;
-  //text-shadow: 1px -1px 0 rgba(0,0,0,0.3);
-  .fa-stack-1x {
-    color: black;
-  }
+//background: hsl(40,30,60);
+//border-bottom: .5rem solid white;
+color: white;
+font-size: 1.5rem;
+margin: 0 auto;
+max-width: 50%;
+padding: .5rem;
+text-align: center;
+//text-shadow: 1px -1px 0 rgba(0,0,0,0.3);
+.fa-stack-1x {
+  color: black;
+}
 }
 
 .login-username, .login-password {
-  background: transparent;
-  border: 0 solid;
-  border-bottom: 1px solid rgba(white, .5);
-  color: white;
-  display: block;
-  margin: 1rem;
-  padding: .5rem;
+background: transparent;
+border: 0 solid;
+border-bottom: 1px solid rgba(white, .5);
+color: white;
+display: block;
+margin: 1rem;
+padding: .5rem;
+transition: 250ms background ease-in;
+width: calc(100% - 3rem);
+&:focus {
+  background: white;
+  color: black;
   transition: 250ms background ease-in;
-  width: calc(100% - 3rem);
-  &:focus {
-    background: white;
-    color: black;
-    transition: 250ms background ease-in;
-  }
+}
 }
 
 .login-forgot-pass {
-  //border-bottom: 1px solid white;
-  bottom: 0;
-  color: white;
-  cursor: pointer;
-  display: block;
-  font-size: 75%;
-  left: 0;
-  opacity: 0.6;
-  padding: .5rem;
-  position: absolute;
-  text-align: center;
-  //text-decoration: none;
-  width: 100%;
-  &:hover {
-    opacity: 1;
-  }
+//border-bottom: 1px solid white;
+bottom: 0;
+color: white;
+cursor: pointer;
+display: block;
+font-size: 75%;
+left: 0;
+opacity: 0.6;
+padding: .5rem;
+position: absolute;
+text-align: center;
+//text-decoration: none;
+width: 100%;
+&:hover {
+  opacity: 1;
+}
 }
 .login-submit {
-  border: 1px solid white;
-  background: transparent;
-  color: white;
-  display: block;
-  margin: 1rem auto;
-  min-width: 1px;
-  padding: .25rem;
+border: 1px solid white;
+background: transparent;
+color: white;
+display: block;
+margin: 1rem auto;
+min-width: 1px;
+padding: .25rem;
+transition: 250ms background ease-in;
+&:hover, &:focus {
+  background: white;
+  color: black;
   transition: 250ms background ease-in;
-  &:hover, &:focus {
-    background: white;
-    color: black;
-    transition: 250ms background ease-in;
-  }
+}
 }
 
 
 
 
 [class*=underlay] {
-  left: 0;
-  min-height: 100%;
-  min-width: 100%;
-  position: fixed;
-  top: 0;
+left: 0;
+min-height: 100%;
+min-width: 100%;
+position: fixed;
+top: 0;
 }
 .underlay-photo {
-  background: url('/img/petrole.jpeg');
-  background-size: 100% 100%;
-  
-  z-index: -1;
+background: url('/img/petrole.jpeg');
+background-size: 100% 100%;
+
+z-index: -1;
 }
 .underlay-black {
-  background: rgba(0, 0, 0, 0.555);
-  z-index: -1;
+background: rgba(0, 0, 0, 0.555);
+z-index: -1;
 }
 
 @keyframes hue-rotate {
-  from {
-    -webkit-filter: grayscale(30%) hue-rotate(0deg);
-  }
-  to {
-    -webkit-filter: grayscale(30%) hue-rotate(360deg);
-  }
+from {
+  -webkit-filter: grayscale(30%) hue-rotate(0deg);
+}
+to {
+  -webkit-filter: grayscale(30%) hue-rotate(360deg);
+}
 }
 </style>

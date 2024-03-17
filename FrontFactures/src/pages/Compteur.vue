@@ -14,7 +14,7 @@
       <button class="btn btn-primary" @click="chnagerView('add')" >Ajouter</button>
       <div class="row">
         <div class="col-12">
-          <Card class="strpied-tabled-with-hover" body-classes="table-full-width table-responsive">
+          <card class="strpied-tabled-with-hover" body-classes="table-full-width table-responsive">
             <template slot="header">
               <h4 class="card-title">Compteurs</h4>
               <p class="card-category">Gérer les compteurs</p>
@@ -23,14 +23,12 @@
               <thead>
                   <th>Type</th>
                   <th>Consommation</th>
-                  <th>Local</th>
                   <th>Actions</th>
               </thead>
               <tbody>
                 <tr v-for="compteur in compteurs" :key="compteur.id">
                   <td>{{ compteur.type }}</td>
                   <td>{{ compteur.consommation }}</td>
-                  <td>{{ GetLocal(compteur.local_id) }}</td>
                   <td>
                     <button class="btn btn-danger" @click="DeleteCompteur(compteur.id)">
                         <i class="fa fa-trash"></i>
@@ -42,7 +40,7 @@
                 </tr>
               </tbody>
             </table>
-          </Card>
+          </card>
         </div>
       </div>
     </div>
@@ -61,7 +59,6 @@ export default {
   created() {
     this.getCompteur();
     this.connect();
-    this.GetLocal();
   },
   data() {
     return {
@@ -104,17 +101,13 @@ export default {
       this.id = id;
       this.view = "voir";
     },
+
     /*Filtrer(region_id) {
       LocalService.Filtrer(region_id).then((res) => {
         this.locals = res.data.data;
         console.log(res);
       });
     },*/
-    GetLocal(id){
-      LocalService.FindByIdLocal(id).then((response)=>{
-        return response.data.data.nomLocal;
-      })
-    }
   },
   components: {
     LTable,

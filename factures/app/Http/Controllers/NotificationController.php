@@ -21,7 +21,6 @@ class NotificationController extends Controller
         Notification::create([
             "description"=>$request->description,
             "facture_id"=>$request->facture_id,
-            broadcast(new Notif("Notification crée"))
         ]);
 
         return response()->json(["message"=>"Notification Created"],201);
@@ -31,7 +30,6 @@ class NotificationController extends Controller
     {
         $Notification=Notification::find($id);
         if($Notification){
-            broadcast(new Notif("Notification detectée"));
             return response()->json(["data"=>$Notification],200);
         }else{
             return response()->json(["message"=>"Notification Not Found"],404);
@@ -47,7 +45,6 @@ class NotificationController extends Controller
             $Notification->update([
                 "description"=>$request->description,
                 "facture_id"=>$request->facture_id,
-                broadcast(new Notif("Notification modifiée"))
             ]);
 
             return response()->json(["message"=>"Notification Updated"],200);
@@ -62,7 +59,6 @@ class NotificationController extends Controller
         $notification = Notification::find($id);
         if($notification){
             $notification->delete();
-            broadcast(new Notif("Notification supprimée"));
             return response()->json(["message"=>"Delete With Success"],200);
         }else{
             return response()->json(["message"=>"Notification Not Found"],404);

@@ -2,58 +2,15 @@
   <div class="content">
     <div class="container-fluid">
       <card>
+        <h3>Notifications</h3>
         <div class="row">
-          <div class="col-md-6">
-            <h5>Notifications Style</h5>
-            <div class="alert alert-info">
-              <span>This is a plain notification</span>
-            </div>
-            <div class="alert alert-info">
-              <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+          <div class="col-md-6" v-for="(column, index) in columns" :key="index">
+            <div class="alert alert-info alert-with-icon" data-notify="container" v-for="(notification, i) in column" :key="i">
+              <button type="button" aria-hidden="true" class="close" @click="removeNotification(index, i)">
                 <i class="nc-icon nc-simple-remove"></i>
               </button>
-              <span>This is a notification with close button.</span>
-            </div>
-            <div class="alert alert-info alert-with-icon" data-notify="container">
-              <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
-                <i class="nc-icon nc-simple-remove"></i>
-              </button>
-              <span data-notify="icon" class="nc-icon nc-app"></span>
-              <span data-notify="message">This is a notification with close button and icon.</span>
-            </div>
-            <div class="alert alert-info alert-with-icon" data-notify="container">
-              <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
-                <i class="nc-icon nc-simple-remove"></i>
-              </button>
-              <span data-notify="icon" class="nc-icon nc-app"></span>
-              <span data-notify="message">This is a notification with close button and icon and have many lines. You can see that the icon and the close button are always vertically aligned. This is a beautiful notification. So you don't have to worry about the style.</span>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <h5>Notification states</h5>
-            <div class="alert alert-info">
-              <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
-                <i class="nc-icon nc-simple-remove"></i>
-              </button>
-              <span><b> Info - </b> This is a regular notification made with ".alert-info"</span>
-            </div>
-            <div class="alert alert-success">
-              <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
-                <i class="nc-icon nc-simple-remove"></i>
-              </button>
-              <span><b> Success - </b> This is a regular notification made with ".alert-success"</span>
-            </div>
-            <div class="alert alert-warning">
-              <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
-                <i class="nc-icon nc-simple-remove"></i>
-              </button>
-              <span><b> Warning - </b> This is a regular notification made with ".alert-warning"</span>
-            </div>
-            <div class="alert alert-danger">
-              <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
-                <i class="nc-icon nc-simple-remove"></i>
-              </button>
-              <span><b> Danger - </b> This is a regular notification made with ".alert-danger"</span>
+              <span data-notify="icon" class="nc-icon nc-bell-55"></span>
+              <span data-notify="message">{{ notification.description }}</span>
             </div>
           </div>
         </div>
@@ -63,37 +20,63 @@
     </div>
   </div>
 </template>
+
 <script>
-  import Card from 'src/components/Cards/Card.vue'
+import Card from 'src/components/Cards/Card.vue'
+import NotificationService from "../services/notifications.js";
 
-  export default {
-    components: {
-      Card
-    },
-    data () {
-      return {
-        type: ['', 'info', 'success', 'warning', 'danger'],
-        notifications: {
-          topCenter: false
-        }
-      }
-    },
-    methods: {
-      notifyVue (verticalAlign, horizontalAlign) {
-        const color = Math.floor((Math.random() * 4) + 1)
-        this.$notifications.notify(
-          {
-            message: `<span>Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer.</span>`,
-            icon: 'nc-icon nc-app',
-            horizontalAlign: horizontalAlign,
-            verticalAlign: verticalAlign,
-            type: this.type[color]
-          })
-      }
+export default {
+  components: {
+    Card
+  },
+  data () {
+    return {
+      type: ['', 'info', 'success', 'warning', 'danger'],
+      notifications: {
+        topCenter: false
+      },
+      notifs: [],
+      columns: [[], []] 
     }
+  },
+  methods: {
+    notifyVue (verticalAlign, horizontalAlign) {
+      const color = Math.floor((Math.random() * 4) + 1)
+      this.$notifications.notify(
+        {
+          message: `<span>Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer.</span>`,
+          icon: 'nc-icon nc-app',
+          horizontalAlign: horizontalAlign,
+          verticalAlign: verticalAlign,
+          type: this.type[color]
+        })
+    },
+    getNotif() {
+      NotificationService.getNotification().then((res) => {
+        console.log(res.data.data);
+        this.notifs = res.data.data;
+        this.columns = this.chunkArray(this.notifs, 2);
+      }).catch((error) => {
+        console.error('Error fetching notifications:', error);
+      });
+    },
+    chunkArray(arr, chunkSize) {
+      const chunks = [];
+      for (let i = 0; i < arr.length; i += chunkSize) {
+        chunks.push(arr.slice(i, i + chunkSize));
+      }
+      return chunks;
+    },
+    removeNotification(columnIndex, notificationIndex) {
+      this.columns[columnIndex].splice(notificationIndex, 1);
+    }
+  },
+  created() {
+    this.getNotif();
   }
-
+}
 </script>
+
 <style lang="scss">
 
 </style>

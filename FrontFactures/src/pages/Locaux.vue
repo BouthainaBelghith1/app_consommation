@@ -18,14 +18,20 @@
               <thead>
                   <th>Nom Local</th>
                   <th>Adresse Local</th>
-                  <th>Catégorie</th>
                   <th>Actions</th>
               </thead>
               <tbody>
                 <tr v-for="local in locals" :key="local.id">
-                  <td>{{ local.nomLocal }}</td>
-                  <td>{{ local.adresseLocal }}</td>
-                  <td>{{ GetCategorie(local.categorie_id) }}</td>
+                  <td>
+                    <span class="d-inline-block text-truncate" style="max-width: 150px;">
+                      {{ local.nomLocal }}
+                    </span>
+                  </td>
+                  <td>
+                    <span class="d-inline-block text-truncate" style="max-width: 150px;">
+                      {{ local.adresseLocal }}
+                    </span>
+                  </td>
                   <td>
                     <button class="btn btn-danger" @click="DeleteLocal(local.id)">
                           <i class="fa fa-trash"></i>
@@ -113,12 +119,6 @@ export default {
         console.log(res);
       });
     },
-    GetCategorie(id){
-      CategorieService.FindByIdCategorie(id).then((response)=>{
-        console.log(response.data.data.nomCategorie);
-        return response.data.data.nomCategorie;
-      })
-    }
   },
   components: {
     LTable,

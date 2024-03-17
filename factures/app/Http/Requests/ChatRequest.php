@@ -25,8 +25,6 @@ class ChatRequest extends FormRequest
     {
         return [
             "message"=>"required|string",
-            "emetteur_id"=>"required|numeric",
-            "recepteur_id"=>"required|numeric"
         ];
     }
 }

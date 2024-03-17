@@ -18,7 +18,7 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>NomCatégorie</th>
+                      <th>Nom Catégorie</th>
                       <th>Actions</th>
                     </tr>
                   </thead>

@@ -233,43 +233,40 @@
       }
     },
     methods:{
-      async fetchCountsByMonth() {
-        try {
-          const response = await CompteurService.countByMonth();
+      fetchCountsByMonth() {
+        CompteurService.countByMonth().then(response => {
           const counts = response.data;
-
           this.barChart.data.series[0] = counts.internet;
           this.barChart.data.series[1] = counts.eau;
           this.barChart.data.series[2] = counts.electricite;
           this.barChart.data.series[3] = counts.gaz;
-        } catch (error) {
+        })
+        .catch(error => {
           console.error('Error fetching data:', error);
-        }
+        });
       },
-      async fetchConsomByMonth() {
-        try {
-          const response = await CompteurService.totalConsommation();
+      fetchConsomByMonth() {
+        CompteurService.totalConsommation().then(response => {
           const counts = response.data;
-
           this.lineChart.data.series[0] = counts.internet;
           this.lineChart.data.series[1] = counts.eau;
           this.lineChart.data.series[2] = counts.electricite;
           this.lineChart.data.series[3] = counts.gaz;
-        } catch (error) {
+        })
+        .catch(error => {
           console.error('Error fetching data:', error);
-        }
+        });
       },
-      async updateChartData() {
-        try {
-          const res = await FactureService.countPayer();
-          this.paidPercentage = (res.data.count/this.factTotale) * 100;
-
-          this.unpaidPercentage =  100 - this.paidPercentage;
+      updateChartData() {
+        FactureService.countPayer().then(res => {
+          this.paidPercentage = (res.data.count / this.factTotale) * 100;
+          this.unpaidPercentage = 100 - this.paidPercentage;
           this.pieChart.data.labels = [`${this.paidPercentage.toFixed(0)}%`, `${this.unpaidPercentage.toFixed(0)}%`];
           this.pieChart.data.series = [this.paidPercentage, this.unpaidPercentage];
-        }catch (error) {
+        })
+        .catch(error => {
           console.error("Error fetching data:", error);
-        }
+        });
       },
       countCompteur() {
         CompteurService.Count().then((res) => {

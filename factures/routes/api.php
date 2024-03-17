@@ -110,8 +110,3 @@ Route::group(['prefix' => '/region'],function(){
     Route::post('/login',[AuthController::class,'Login']);
  });
 
- 
-Route::get('/broadcast', function () {
-   broadcast(new Fact ("test"));
-   return "Event has been sent!";
-});

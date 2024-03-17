@@ -3,13 +3,13 @@ import "../plugins/axios.js";
 
 export default {
     getChat(){
-        return Axios.get("/chat/getAll");
+        return Axios.get('/chat/getAll');
     },
     deleteChat(id){
         return Axios.delete(`/chat/destroy/${id}`);
     },
     createChat(data) {
-        return Axios.post('/chatAddChat', data);
+        return Axios.post('/chat/AddChat', data);
     },
     UpdateChat(id,data){
         return Axios.put(`/chat/update/${id}`,data);

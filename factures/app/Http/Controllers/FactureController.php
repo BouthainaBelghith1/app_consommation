@@ -6,6 +6,7 @@ use App\Http\Requests\FactureRequest;
 use App\Models\Compteur;
 use App\Models\Facture;
 use App\Models\Local;
+use App\Models\Notification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Events\Fact;
@@ -15,7 +16,6 @@ class FactureController extends Controller
     public function GetFacture()
     {
         $factures = Facture::all();
-        broadcast(new Fact("test"));
         return response()->json(["data"=>$factures],200);
     }
 
@@ -60,7 +60,8 @@ class FactureController extends Controller
             'quantite' => $quantite,
             'compteur_id' => $request->compteur_id,
         ]);
-        broadcast(new Fact("test"));
+
+
         return response()->json(["message"=>"Facture Created"],201);
     }
  
@@ -84,7 +85,6 @@ class FactureController extends Controller
                 'prixUnitaire' => $request->prixUnitaire,
                 'compteur_id' => $request->compteur_id,
             ]);
-            broadcast(new Fact("test"));
             return response()->json(["message"=>"facture Updated"],200);
 
         }else{

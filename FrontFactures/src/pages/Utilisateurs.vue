@@ -30,9 +30,17 @@
                   </thead>
                   <tbody>
                     <tr v-for="user in users" :key="user.id">
-                      <td>{{ user.id }}</td>
-                      <td>{{ user.nom }}</td>
-                      <td>{{ user.prenom }}</td>
+                      <td>
+                        {{ user.id }}</td>
+                      <td>
+                        <span class="d-inline-block text-truncate" style="max-width: 150px;">
+                          {{ user.nom }}
+                        </span>
+                      </td>
+                      <td>
+                        <span class="d-inline-block text-truncate" style="max-width: 150px;">
+                          {{ user.prenom }}
+                        </span></td>
                       <td>{{ user.role }}</td>
                       <td>
                         <button  class="btn btn-danger" @click="DeleteUser(user.id)"><i class="fa fa-trash"></i></button>

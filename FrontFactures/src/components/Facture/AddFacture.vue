@@ -14,12 +14,7 @@
                 </option>
             </select>
         </div>
-    
-  
-      
       <hr class="my-4"/>
-
-        
         <div class="text-center">
           <button type="submit" class="btn btn-info btn-fill float-right">
             Ajouter Facture
@@ -34,6 +29,7 @@
   import Card from 'src/components/Cards/Card.vue';
   import FactureService from "../../services/factures.js";
   import CompteurService from "../../services/compteurs.js";
+  import NotificationService from "../../services/notifications.js";
   export default {
     created(){
         this.loadCompteurs()
@@ -55,24 +51,28 @@
           compteur_id:""
         },
         compteurs: [],
+        notif: {
+          description : "",
+          facture_id:""
+        }
       }
     },
     methods: {
         AddFacture(){
             FactureService.createFacture(
-                {
-                  periode:this.facture.periode,
-                  adresse:this.facture.adresse,
-                  isPaid:this.facture.isPaid,
-                  dateFinConsommation:this.facture.dateFinConsommation,
-                  prixUnitaire:this.facture.prixUnitaire,
-                  quantite:this.facture.quantite,
-                  montantTotale:this.facture.montantTotale,
-                  dateLimitePaiement:this.facture.dateLimitePaiement,
-                  compteur_id:this.facture.compteur_id,
-                }
+              {
+                periode:this.facture.periode,
+                adresse:this.facture.adresse,
+                isPaid:this.facture.isPaid,
+                dateFinConsommation:this.facture.dateFinConsommation,
+                prixUnitaire:this.facture.prixUnitaire,
+                quantite:this.facture.quantite,
+                montantTotale:this.facture.montantTotale,
+                dateLimitePaiement:this.facture.dateLimitePaiement,
+                compteur_id:this.facture.compteur_id,
+              }
             ).then((res)=>{
-                this.BackToAffiche();
+              this.BackToAffiche();
             })
         },
         BackToAffiche(){

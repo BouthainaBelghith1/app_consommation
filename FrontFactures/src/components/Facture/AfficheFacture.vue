@@ -103,14 +103,16 @@
                 </tr>
             </tbody>
         </table>
-        <button @click="BackToAffiche" class="btn btn-danger btn-fill float-right">cancel</button>
     </div>
+    <button @click="BackToAffiche" class="btn btn-danger btn-fill float-right">cancel</button>
+    <button @click="downloadPDF" class="btn btn-primary btn-fill float-right">Télécharger PDF</button>
     </div>
 
 </template>
 <script>
 import FactureService from "../../services/factures.js";
 import CompteurService from "../../services/compteurs.js";
+import html2pdf from 'html2pdf.js';
 export default {
     name: 'AfficheFacture',
     props:{
@@ -138,6 +140,17 @@ export default {
         BackToAffiche(){
             this.$emit("chnagerView",'affichage');
         },
+        downloadPDF() {  
+          const options = {
+              margin: 1,
+              filename: `${this.facture.id}_${this.facture.adresse}.pdf`,
+              image: { type: 'png', quality: 0.1 },
+              html2canvas: { scale: 3, windowHeight: document.body.scrollHeight },
+              jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+          };
+          
+          html2pdf().from(document.getElementsByClassName("invoice-container")[0]).set(options).save();
+        }
     },
     created() {
         this.getById();
